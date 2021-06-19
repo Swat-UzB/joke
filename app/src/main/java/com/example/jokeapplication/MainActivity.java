@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.jokeapplication.adapters.JokeAdapter;
@@ -19,8 +20,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class MainActivity extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity implements JokeView {
+    private JokePresenter presenter;
+    private JokeAdapter jokeAdapter;
     private ActivityMainBinding mainBinding;
 
     @Override
@@ -29,37 +31,21 @@ public class MainActivity extends AppCompatActivity {
         mainBinding = ActivityMainBinding.inflate(getLayoutInflater());
         View view = mainBinding.getRoot();
         setContentView(view);
-        JokeAdapter jokeAdapter = new JokeAdapter();
-        mainBinding.jokeRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        presenter = new JokePresenter(this);
+        jokeAdapter = new JokeAdapter();
+        mainBinding.jokeRecyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         mainBinding.jokeRecyclerView.setAdapter(jokeAdapter);
-        ApiFactory apiFactory = ApiFactory.getInstance();
-        ApiService apiService = apiFactory.getApiService();
-        apiService.getJoke()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Joke>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(Joke joke) {
-                        Log.d("TTT", "onNext: " + joke.getType());
-                        jokeAdapter.setJoke(joke);
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        e.printStackTrace();
-                        Toast.makeText(MainActivity.this, "yuklashda xatolik", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+        presenter.loadData();
     }
+
+    @Override
+    public void showData(Joke joke) {
+        jokeAdapter.setJoke(joke);
+    }
+
+    @Override
+    public void showError() {
+        Toast.makeText(this, "Ma\'lumot yuklashda xatolik", Toast.LENGTH_SHORT).show();
+    }
+
 }
