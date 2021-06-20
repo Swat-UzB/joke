@@ -30,6 +30,6 @@ public class JokeViewModel extends AndroidViewModel {
     }
 
     public void insertJokes(List<Joke> jokes) {
-        db.jokeDao().insertJokes();
+        db.jokeDao().insertJokes(jokes);
     }
 }
