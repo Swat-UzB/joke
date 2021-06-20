@@ -9,17 +9,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.jokeapplication.databinding.JokeItemBinding;
 import com.example.jokeapplication.pojo.Joke;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class JokeAdapter extends RecyclerView.Adapter<JokeAdapter.JokeViewHolder> {
 
-    private Joke joke;
+    private List<Joke> jokes;
 
-    public void setJoke(Joke joke) {
-        this.joke = joke;
-        notifyDataSetChanged();
-    }
 
     public JokeAdapter() {
-        joke = new Joke();
+        jokes = new ArrayList<>();
+    }
+
+    public void setJokes(List<Joke> jokes) {
+        this.jokes.clear();
+        this.jokes.addAll(jokes);
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -30,6 +35,7 @@ public class JokeAdapter extends RecyclerView.Adapter<JokeAdapter.JokeViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull JokeAdapter.JokeViewHolder holder, int position) {
+        Joke joke = jokes.get(position);
         holder.jokeItemBinding.categoryTextView.setText(joke.getCategory());
         holder.jokeItemBinding.deliveryTextView.setText(joke.getDelivery());
         holder.jokeItemBinding.setupTextView.setText(joke.getSetup());
@@ -37,7 +43,7 @@ public class JokeAdapter extends RecyclerView.Adapter<JokeAdapter.JokeViewHolder
 
     @Override
     public int getItemCount() {
-        return joke == null ? 0 : 1;
+        return jokes == null ? 0 : jokes.size();
     }
 
     public class JokeViewHolder extends RecyclerView.ViewHolder {

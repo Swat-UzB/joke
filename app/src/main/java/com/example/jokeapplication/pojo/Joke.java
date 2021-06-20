@@ -1,9 +1,14 @@
 package com.example.jokeapplication.pojo;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+@Entity(tableName = "joke")
 public class Joke {
+
     @SerializedName("error")
     @Expose
     private Boolean error;
@@ -19,9 +24,10 @@ public class Joke {
     @SerializedName("delivery")
     @Expose
     private String delivery;
-    @SerializedName("flags")
-    @Expose
-    private Flags flags;
+    //    @SerializedName("flags")
+//    @Expose
+//    private Flags flags;
+    @PrimaryKey
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -56,13 +62,13 @@ public class Joke {
         this.type = type;
     }
 
-    public Flags getFlags() {
-        return flags;
-    }
-
-    public void setFlags(Flags flags) {
-        this.flags = flags;
-    }
+//    public Flags getFlags() {
+//        return flags;
+//    }
+//
+//    public void setFlags(Flags flags) {
+//        this.flags = flags;
+//    }
 
     public Integer getId() {
         return id;

@@ -1,10 +1,10 @@
-package com.example.jokeapplication;
-
-import android.util.Log;
+package com.example.jokeapplication.screens;
 
 import com.example.jokeapplication.api.ApiFactory;
 import com.example.jokeapplication.api.ApiService;
 import com.example.jokeapplication.pojo.Joke;
+
+import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -24,16 +24,15 @@ public class    JokePresenter {
         apiService.getJoke()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Observer<Joke>() {
+                .subscribe(new Observer<List<Joke>>() {
                     @Override
                     public void onSubscribe(Disposable d) {
 
                     }
 
                     @Override
-                    public void onNext(Joke joke) {
-                        view.showData(joke);
-
+                    public void onNext( List<Joke> jokes) {
+                       view.showData(jokes);
                     }
 
                     @Override

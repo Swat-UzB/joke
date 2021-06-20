@@ -1,24 +1,19 @@
 package com.example.jokeapplication;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.jokeapplication.adapters.JokeAdapter;
-import com.example.jokeapplication.api.ApiFactory;
-import com.example.jokeapplication.api.ApiService;
 import com.example.jokeapplication.databinding.ActivityMainBinding;
 import com.example.jokeapplication.pojo.Joke;
+import com.example.jokeapplication.screens.JokePresenter;
+import com.example.jokeapplication.screens.JokeView;
 
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements JokeView {
     private JokePresenter presenter;
@@ -39,8 +34,8 @@ public class MainActivity extends AppCompatActivity implements JokeView {
     }
 
     @Override
-    public void showData(Joke joke) {
-        jokeAdapter.setJoke(joke);
+    public void showData(List<Joke> jokes) {
+        jokeAdapter.setJokes(jokes);
     }
 
     @Override
