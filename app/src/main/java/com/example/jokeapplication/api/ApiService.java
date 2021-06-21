@@ -8,6 +8,6 @@ import io.reactivex.Observable;
 import retrofit2.http.GET;
 
 public interface ApiService {
-    @GET("joke/Any?type=twopart&amount=10")
-    Observable<List<Joke>> getJoke();
+    @GET("joke/Any?type=twopart")
+    Observable<Joke> getJoke();
 }

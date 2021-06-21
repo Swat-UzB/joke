@@ -14,10 +14,10 @@ import java.util.List;
 @Dao
 public interface JokeDao {
     @Query("SELECT * FROM joke")
-    LiveData<List<Joke>> getAllJokes();
+    LiveData<Joke> getAllJokes();
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void insertJokes(List<Joke> jokes);
+    void insertJokes(Joke jokes);
 
     @Query("DELETE FROM joke")
     void deleteAllJokes(); 
