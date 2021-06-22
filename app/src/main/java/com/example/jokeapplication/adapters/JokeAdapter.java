@@ -20,6 +20,7 @@ public class JokeAdapter extends RecyclerView.Adapter<JokeAdapter.JokeViewHolder
 
     public void setJokes(Joke jokes) {
         this.jokes = jokes;
+        //
         notifyDataSetChanged();
     }
 
